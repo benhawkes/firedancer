@@ -12,12 +12,12 @@
    provided to facilitate compile time dcache declarations. */
 
 #define FD_DCACHE_ALIGN (128UL)
-#define FD_DCACHE_FOOTPRINT( data_sz, app_sz )                                                            \
-  FD_LAYOUT_FINI( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_INIT, \
-    FD_DCACHE_ALIGN, 128UL                     ), /* hdr   */                                             \
-    FD_DCACHE_ALIGN, FD_DCACHE_GUARD_FOOTPRINT ), /* guard */                                             \
-    FD_DCACHE_ALIGN, (data_sz)                 ), /* data  */                                             \
-    FD_DCACHE_ALIGN, (app_sz)                  ), /* app   */                                             \
+#define FD_DCACHE_FOOTPRINT( data_sz, app_sz )                                                \
+  FD_LAYOUT_FINI( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_INIT, \
+    FD_DCACHE_ALIGN, 128UL                     ), /* hdr   */                                 \
+    FD_DCACHE_ALIGN, FD_DCACHE_GUARD_FOOTPRINT ), /* guard */                                 \
+    FD_DCACHE_ALIGN, (data_sz)                 ), /* data  */                                 \
+    FD_DCACHE_ALIGN, (app_sz)                  ), /* app   */                                 \
     FD_DCACHE_ALIGN )
 
 /* FD_DCACHE_GUARD_FOOTPRINT specify the footprint of the guard region

@@ -163,6 +163,8 @@ after_frag( void *             _ctx,
   *opt_chunk = ctx->out_chunk;
   *opt_sig = *(ulong *)local_sig;
   ctx->out_chunk = fd_dcache_compact_next( ctx->out_chunk, *opt_sz, ctx->out_chunk0, ctx->out_wmark );
+
+  fd_canary_check();
 }
 
 static void

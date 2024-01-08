@@ -395,6 +395,8 @@ after_frag( void *             _ctx,
 
     legacy_stream_notify( ctx, ctx->buffer+network_hdr_sz, (uint)(*opt_sz - network_hdr_sz) );
   }
+
+  fd_canary_check();
 }
 
 /* quic_now is called by the QUIC engine to get the current timestamp in

@@ -87,7 +87,7 @@
 
 #define FD_CNC_ALIGN (128UL)
 #define FD_CNC_FOOTPRINT( app_sz )                                    \
-  FD_LAYOUT_FINI( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_INIT, \
+  FD_LAYOUT_FINI( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_INIT,       \
     FD_CNC_ALIGN,     64UL     ),                                     \
     FD_CNC_APP_ALIGN, (app_sz) ),                                     \
     FD_CNC_ALIGN )

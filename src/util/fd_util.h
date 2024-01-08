@@ -290,6 +290,46 @@ fd_boot( int *    pargc,
 void
 fd_halt( void );
 
+extern ulong fd_canary_base;
+extern ulong fd_canary_locs[1024];
+extern size_t fd_ncanary;
+extern int fd_ncanary_warn;
+
+void
+fd_canary_init( void );
+
+static inline ulong
+fd_canary_layout( ulong layout ) {
+  ulong _postalign = fd_ulong_align_up( layout + 8, 8 );
+  *((ulong *) layout) = fd_canary_base;
+
+  fd_canary_locs[fd_ncanary++] = layout;
+
+  if ( fd_ncanary == sizeof(fd_canary_locs)/sizeof(ulong) ) {
+    if (fd_ncanary_warn)
+      FD_LOG_WARNING(( "Fixed-sized canary tracking buffer is full." ));
+
+    fd_ncanary = 0;
+  }
+
+  return _postalign;
+}
+
+static inline void
+fd_canary_check( void ) {
+  size_t i;
+  ulong *canary;
+
+  for ( i = 0; i < fd_ncanary; i++ ) {
+    canary = (ulong *) fd_canary_locs[i];
+
+    if ( *canary != fd_canary_base )
+      FD_LOG_CRIT(( "Mismatched canary %d at addr %p", i, canary ));
+  }
+
+  return;
+}
+
 FD_PROTOTYPES_END
 
 #endif /* HEADER_fd_src_util_fd_util_h */

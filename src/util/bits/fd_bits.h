@@ -958,7 +958,8 @@ fd_ulong_svw_dec_tail( uchar const * b,
    evaluation, and the final size be at most ULONG_MAX-page_sz+1. */
 
 #define FD_LAYOUT_INIT              (0UL)
-#define FD_LAYOUT_APPEND( l, a, s ) (FD_ULONG_ALIGN_UP( (l), (a) ) + (s))
+#define FD_LAYOUT_APPEND( l, a, s ) (FD_ULONG_ALIGN_UP(FD_ULONG_ALIGN_UP( (l), (a) ) + (s) + 8, 8))
+#define FD_LAYOUT_ADD( l, a, s )    (FD_ULONG_ALIGN_UP( (l), (a) ) + (s))
 #define FD_LAYOUT_FINI( l, a )      FD_ULONG_ALIGN_UP( (l), (a) )
 
 /* FD_SCRATCH_ALLOC_{INIT,APPEND,FINI} are utility macros for allocating
@@ -994,7 +995,7 @@ fd_ulong_svw_dec_tail( uchar const * b,
     ulong _scratch_alloc = fd_ulong_align_up( _##layout, (align) );                                 \
     if( FD_UNLIKELY( _scratch_alloc+_sz<_scratch_alloc ) )                                          \
       FD_LOG_ERR(( "FD_SCRATCH_ALLOC_APPEND( %s, %lu, %lu ) overflowed", #layout, _align, _sz ));   \
-    _##layout = _scratch_alloc + _sz;                                                               \
+    _##layout = fd_canary_layout(_scratch_alloc + _sz);                                             \
     (void *)_scratch_alloc;                                                                         \
     }))
 #define FD_SCRATCH_ALLOC_FINI( layout, align ) (_##layout = FD_ULONG_ALIGN_UP( _##layout, (align) ) )

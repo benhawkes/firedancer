@@ -481,6 +481,8 @@ fd_mux_tile( fd_cnc_t *              cnc,
 
         /* user callback */
         if( FD_UNLIKELY( callbacks->during_housekeeping ) ) callbacks->during_housekeeping( ctx );
+
+        fd_canary_check();
       }
 
       /* Select which event to do next (randomized round robin) and

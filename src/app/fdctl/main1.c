@@ -85,6 +85,8 @@ fdctl_boot( int *        pargc,
   fd_log_level_core_set( 5 ); /* Don't dump core for FD_LOG_ERR during boot */
   fd_log_colorize_set( should_colorize() ); /* Colorize during boot until we can determine from config */
 
+  fd_canary_init();
+
   int config_fd = fd_env_strip_cmdline_int( pargc, pargv, "--config-fd", NULL, -1 );
 
   config_t config = {0};

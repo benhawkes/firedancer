@@ -13,12 +13,12 @@
    provided to facilitate compile time mcache declarations. */
 
 #define FD_MCACHE_ALIGN (128UL)
-#define FD_MCACHE_FOOTPRINT( depth, app_sz )                                                              \
-  FD_LAYOUT_FINI( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_INIT, \
-    FD_MCACHE_ALIGN, 128UL                           ), /* hdr  */                                        \
-    FD_MCACHE_ALIGN, FD_MCACHE_SEQ_CNT*sizeof(ulong) ), /* seq  */                                        \
-    FD_MCACHE_ALIGN, (depth)*sizeof(fd_frag_meta_t)  ), /* meta */                                        \
-    FD_MCACHE_ALIGN, (app_sz)                        ), /* app  */                                        \
+#define FD_MCACHE_FOOTPRINT( depth, app_sz )                                                  \
+  FD_LAYOUT_FINI( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_INIT, \
+    FD_MCACHE_ALIGN, 128UL                           ), /* hdr  */                            \
+    FD_MCACHE_ALIGN, FD_MCACHE_SEQ_CNT*sizeof(ulong) ), /* seq  */                            \
+    FD_MCACHE_ALIGN, (depth)*sizeof(fd_frag_meta_t)  ), /* meta */                            \
+    FD_MCACHE_ALIGN, (app_sz)                        ), /* app  */                            \
     FD_MCACHE_ALIGN )
 
 /* FD_MCACHE_SEQ_CNT specifies the number of entries in the mcache's seq

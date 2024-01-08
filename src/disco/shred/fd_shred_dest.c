@@ -34,7 +34,7 @@ typedef struct shred_dest_input shred_dest_input_t;
 ulong
 fd_shred_dest_footprint( ulong cnt ) {
   int lg_cnt = fd_ulong_find_msb( fd_ulong_pow2_up( 2UL*fd_ulong_max( cnt, 1UL ) ) );
-  return FD_LAYOUT_FINI( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND( FD_LAYOUT_APPEND(
+  return FD_LAYOUT_FINI( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD( FD_LAYOUT_ADD(
                 FD_LAYOUT_INIT,
                 fd_shred_dest_align(),             sizeof(fd_shred_dest_t)              ),
                 fd_wsample_align(),                fd_wsample_footprint( cnt, 1 )       ),

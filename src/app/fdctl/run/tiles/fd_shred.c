@@ -545,6 +545,8 @@ after_frag( void *             _ctx,
 
     FD_TEST( ctx->fec_sets <= *out_fec_set );
     ctx->send_fec_set_idx = (ulong)(*out_fec_set - ctx->fec_sets);
+
+    fd_canary_check();
   } else {
     /* We know we didn't get overrun, so advance the index */
     ctx->shredder_fec_set_idx = (ctx->shredder_fec_set_idx+1UL)%ctx->shredder_max_fec_set_idx;

@@ -69,7 +69,7 @@ scratch_footprint( fd_topo_tile_t * tile ) {
 
 FD_FN_CONST static inline void *
 mux_ctx( void * scratch ) {
-  ulong net_init = fd_ulong_align_up( (ulong)scratch, alignof( fd_net_init_ctx_t ) );
+  ulong net_init = fd_ulong_align_up(fd_ulong_align_up( (ulong)scratch, alignof( fd_net_init_ctx_t ) ) + 8, 8);
   return (void*)fd_ulong_align_up( net_init + sizeof( fd_net_init_ctx_t ), alignof( fd_net_ctx_t ) );
 }
 
