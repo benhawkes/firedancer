@@ -56,6 +56,8 @@ tile_main( void * _args ) {
                                  &fd_tile_private_stack0, &fd_tile_private_stack1 );
   FD_LOG_NOTICE(( "booting tile %s:%lu pid:%lu", fd_topo_tile_kind_str( tile->kind ), tile->kind_id, fd_log_group_id() ));
 
+  fd_canary_init();
+
   /* preload shared memory before sandboxing, so it is already mapped */
   fd_topo_join_tile_workspaces( args->config->name,
                                 &args->config->topo,

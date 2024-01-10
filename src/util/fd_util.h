@@ -290,10 +290,10 @@ fd_boot( int *    pargc,
 void
 fd_halt( void );
 
-extern ulong fd_canary_base;
-extern ulong fd_canary_locs[1024];
-extern size_t fd_ncanary;
-extern int fd_ncanary_warn;
+extern FD_TL ulong fd_canary_base;
+extern FD_TL ulong fd_canary_locs[1024];
+extern FD_TL size_t fd_ncanary;
+extern FD_TL int fd_ncanary_warn;
 
 void
 fd_canary_init( void );
